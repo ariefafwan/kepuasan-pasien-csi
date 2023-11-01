@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HasilController;
+use App\Http\Controllers\KategoriIndikatorController;
+use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RespondenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::resource('/indikator', KategoriIndikatorController::class)->except('create', 'update', 'show');
+    Route::resource('/pertanyaan', PertanyaanController::class)->except('create', 'update', 'show');
+    Route::resource('/responden', RespondenController::class)->except('create', 'update', 'show');
+    Route::resource('/hasil', HasilController::class)->except('update');
+    Route::put('/updatehasil', [AdminController::class, 'updatehasil'])->name('update.hasil');
+
+    Route::get('/perhitungan', [AdminController::class, 'perhitungan'])->name('csi.perhitungan');
 });
 
 require __DIR__ . '/auth.php';

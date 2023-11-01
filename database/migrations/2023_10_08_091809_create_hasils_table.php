@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('pertanyaan_id')->unsigned();
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('responden_id')->unsigned();
+            $table->foreign('responden_id')->references('id')->on('respondens')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('bobot_harapan', [1, 2, 3, 4, 5]);
             $table->enum('bobot_persepsi', [1, 2, 3, 4, 5]);
             $table->timestamps();
