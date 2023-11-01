@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Hasil extends Model
 {
     use HasFactory;
-    protected $fillable = ['pertanyaan_id', 'user_id', 'bobot_harapan', 'bobot_persepsi'];
+    protected $fillable = ['pertanyaan_id', 'responden_id', 'bobot_harapan', 'bobot_persepsi'];
 
     public function pertanyaan()
     {
         return $this->belongsTo(Pertanyaan::class);
     }
 
-    public function user()
+    public function responden()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Responden::class);
     }
 }
