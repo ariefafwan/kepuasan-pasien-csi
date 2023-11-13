@@ -58,6 +58,14 @@ class AdminController extends Controller
     {
         $page = 'Perhitungan CSI';
         $dtahun = Hasil::select('tahun')->distinct()->get();
+        $mean = Hasil::select('pertanyaan_id')
+            ->selectRaw("SUM(bobot_harapan) / COUNT(bobot_harapan) as mis")
+            ->selectRaw("SUM(bobot_persepsi) / COUNT(bobot_persepsi) as mss")
+            ->groupBy('pertanyaan_id')->get();
+
+        if (count($mean) <= 1) {
+            return view('admin.hasil.gagal', compact('page'));
+        }
 
         return view('admin.hasil.perhitungan', compact('page', 'dtahun'));
     }
@@ -71,9 +79,6 @@ class AdminController extends Controller
             ->selectRaw("SUM(bobot_persepsi) / COUNT(bobot_persepsi) as mss")
             ->groupBy('pertanyaan_id')->get();
 
-        if (count($mean) <= 1) {
-            return view('admin.hasil.gagal', compact('page'));
-        }
         $summis = 0;
         $summss = 0;
 
