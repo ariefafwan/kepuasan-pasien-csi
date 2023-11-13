@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/updatehasil', [AdminController::class, 'updatehasil'])->name('update.hasil');
 
     Route::get('/perhitungan', [AdminController::class, 'perhitungan'])->name('csi.perhitungan');
+    Route::get('/csi/{tahun}', [AdminController::class, 'csi'])->name('csi.index');
 });
 
 require __DIR__ . '/auth.php';

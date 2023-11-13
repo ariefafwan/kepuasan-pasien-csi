@@ -37,6 +37,7 @@ class RespondenController extends Controller
             'nama_wali' => 'required|string',
             'usia' => 'required|string',
             'jenis_kelamin' => 'required|string',
+            'no_bpjs' => 'required',
             'alamat' => 'required|string',
             'pekerjaan' => 'required|required',
         ]);
@@ -57,6 +58,7 @@ class RespondenController extends Controller
         $responden->nama_wali = $request->nama_wali;
         $responden->usia = $request->usia;
         $responden->alamat = $request->alamat;
+        $responden->no_bpjs = $request->no_bpjs;
         $responden->jenis_kelamin = $request->jenis_kelamin;
         $responden->pekerjaan = $request->pekerjaan;
         $responden->save();

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('nama_wali');
             $table->string('usia');
+            $table->string('no_bpjs');
             $table->string('jenis_kelamin');
             $table->string('alamat');
             $table->string('pekerjaan');
