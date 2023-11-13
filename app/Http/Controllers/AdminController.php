@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\CsiChart;
 use App\Models\Hasil;
 use App\Models\Pertanyaan;
+use App\Models\Responden;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
-    public function index()
+    // public function __construct()
+    // {
+    //     PendudukPerempuanChart $chartperempuan, PendudukLakiChart $chartlaki
+    // }
+
+    public function index(CsiChart $csiChart)
     {
         $page = 'Dashboard Admin';
-        return view('admin.dashboard', compact('page'));
+        $dtahun = Hasil::select('tahun')->distinct()->get();
+        $responden = Responden::all()->count();
+        $chart = $csiChart->build();
+        return view('admin.dashboard', compact('page', 'chart', 'responden'));
     }
 
     public function updatehasil(Request $request)
@@ -43,32 +54,39 @@ class AdminController extends Controller
         return redirect()->route('hasil.index');
     }
 
-    public function perhitungan()
+    public function perhitungan(Request $request)
     {
         $page = 'Perhitungan CSI';
+        $dtahun = Hasil::select('tahun')->distinct()->get();
+
+        return view('admin.hasil.perhitungan', compact('page', 'dtahun'));
+    }
+
+    public function csi($tahun)
+    {
         $pertanyaan = Pertanyaan::select('id', 'kode_pertanyaan')->get();
         $mean = Hasil::select('pertanyaan_id')
-            ->selectRaw("SUM(bobot_harapan) / COUNT(bobot_harapan) as msi")
+            ->where('tahun', $tahun)
+            ->selectRaw("SUM(bobot_harapan) / COUNT(bobot_harapan) as mis")
             ->selectRaw("SUM(bobot_persepsi) / COUNT(bobot_persepsi) as mss")
             ->groupBy('pertanyaan_id')->get();
-
 
         if (count($mean) <= 1) {
             return view('admin.hasil.gagal', compact('page'));
         }
-        $meanmis = 0;
-        $meanmss = 0;
+        $summis = 0;
+        $summss = 0;
 
         foreach ($mean as $key => $m) {
-            $meanmis += $m->msi;
-            $meanmss += $m->mss;
+            $summis += $m->mis;
+            $summss += $m->mss;
         }
 
         $wf = [];
         foreach ($mean as $key => $value) {
             $wf[] = [
                 'pertanyaan_id' => $value->pertanyaan_id,
-                'wf' => $value->msi / $meanmis * 100,
+                'wf' => $value->mis / $summis * 100,
             ];
         }
 
@@ -78,7 +96,8 @@ class AdminController extends Controller
                 if ($value2->pertanyaan_id == $nwf['pertanyaan_id']) {
                     $hasil[] = [
                         'pertanyaan_id' => $nwf['pertanyaan_id'],
-                        'msi' => $value2->msi,
+                        'kode_pertanyaan' => $value2->pertanyaan->kode_pertanyaan,
+                        'mis' => $value2->mis,
                         'mss' => $value2->mss,
                         'wf' => $nwf['wf'],
                         'ws' => $nwf['wf'] * $value2->mss,
@@ -88,12 +107,12 @@ class AdminController extends Controller
             };
         }
 
+        // dd($hasil);
         $wt = 0;
         foreach ($hasil as $key => $value) {
             $wt += $value['ws'];
         }
 
-        // return response()->json($hasil, 200);
-        return view('admin.hasil.perhitungan', compact('page', 'wt', 'hasil', 'pertanyaan', 'meanmis', 'meanmss'));
+        return response()->json(compact('hasil', 'wt', 'pertanyaan', 'summis', 'summss'));
     }
 }

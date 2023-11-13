@@ -6,6 +6,7 @@ use App\Models\Hasil;
 use App\Models\KategoriIndikator;
 use App\Models\Pertanyaan;
 use App\Models\Responden;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -46,6 +47,7 @@ class HasilController extends Controller
             'responden_id' => ['required', 'numeric'],
             'bobot_harapan.*' => ['required', 'numeric'],
             'bobot_persepsi.*' => ['required', 'numeric'],
+            'tanggal' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -53,9 +55,13 @@ class HasilController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         } else {
+            $date = new Carbon($request->tanggal);
+            $year = $date->year;
             for ($i = 0; $i < count($request->pertanyaan_id); $i++) {
                 $hasil = new Hasil();
                 $hasil->pertanyaan_id = $request->pertanyaan_id[$i];
+                $hasil->tanggal = $request->tanggal;
+                $hasil->tahun = $year;
                 $hasil->responden_id = $request->responden_id;
                 $hasil->bobot_harapan = $request->bobot_harapan[$i];
                 $hasil->bobot_persepsi = $request->bobot_persepsi[$i];

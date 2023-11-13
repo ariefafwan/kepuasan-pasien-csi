@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('hasils', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pertanyaan_id')->unsigned();
+            $table->date('tanggal');
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('responden_id')->unsigned();
             $table->foreign('responden_id')->references('id')->on('respondens')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('bobot_harapan', [1, 2, 3, 4, 5]);
             $table->enum('bobot_persepsi', [1, 2, 3, 4, 5]);
+            $table->year('tahun');
             $table->timestamps();
         });
     }

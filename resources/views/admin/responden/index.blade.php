@@ -105,6 +105,7 @@
                 {
                     $('#idresponden').val(data.id);
                     $('#editname').val(data.name);
+                    $('#editno_bpjs').val(data.no_bpjs);
                     $('#editnama_wali').val(data.nama_wali);
                     $('#editalamat').val(data.alamat);
                     $('#editusia').val(data.usia);

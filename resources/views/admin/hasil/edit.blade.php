@@ -31,6 +31,10 @@
                         </select>
                     </div>
                     <div class="w-full mt-3">
+                        <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">Tanggal</label>
+                        <input type="date" id="tanggal" name="tanggal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="w-full mt-3">
                         <label for="pertanyaan_id" class="block mb-2 text-sm font-medium text-gray-900">Pilih Pertanyaan</label>
                         <select id="pertanyaan_id" name="pertanyaan_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>-- Pilih Pertanyaan --</option>

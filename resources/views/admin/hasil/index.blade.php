@@ -100,6 +100,7 @@
                 {
                     $('#idhasil').val(data.id);
                     $('#responden_id').val(data.responden_id);
+                    $('#tanggal').val(data.tanggal);
                     $('#pertanyaan_id').val(data.pertanyaan_id);
                     $('#bobot_harapan').val(data.bobot_harapan);
                     $('#bobot_persepsi').val(data.bobot_persepsi);

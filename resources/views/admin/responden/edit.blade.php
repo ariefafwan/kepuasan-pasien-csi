@@ -20,12 +20,15 @@
         <form action="{{ route('responden.store' ) }}" method="post" enctype="multipart/form-data">
             @csrf
                 <input type="hidden" name="idresponden" id="idresponden" >
-                <div class="mb-3">
-                    <label for="editname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Responden</label>
-                    <input type="text" name="name" id="editname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Input Nama Responden.." required>
-                </div>
-                
                 <div class="grid gap-4 mb-3 sm:grid-cols-2 sm:gap-6 sm:mb-3">
+                    <div class="w-full">
+                        <label for="editname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Responden</label>
+                        <input type="text" name="name" id="editname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Input Nama Responden.." required>
+                    </div>
+                    <div class="w-full">
+                        <label for="editno_bpjs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No BPJS</label>
+                        <input type="text" name="no_bpjs" id="editno_bpjs" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Input Nama Responden.." required>
+                    </div>
                     <div class="w-full">
                         <label for="editnama_wali" class="block mb-2 text-sm font-medium text-gray-900">Nama Wali Responden</label>
                         <input type="text" name="nama_wali" id="editnama_wali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input Nama Wali Responden..." required>
