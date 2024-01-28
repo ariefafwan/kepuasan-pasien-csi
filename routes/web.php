@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\HasilController;
 use App\Http\Controllers\KategoriIndikatorController;
 use App\Http\Controllers\PertanyaanController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('/form', [FormController::class, 'index'])->name('form.index');
+Route::post('/form', [FormController::class, 'store'])->name('form.store');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
